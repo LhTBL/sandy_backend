@@ -2,7 +2,10 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets
 from django.contrib.auth import get_user_model
+from .models import ActivoUbicacion, Activo
+from .serializers import ActivoUbicacionSerializer, ActivoSerializer
 
 # Create your views here.
 
@@ -25,3 +28,12 @@ class UserProfileView(APIView):
         if role:
             data['role'] = role
         return Response(data)
+
+# CRUD API viewsets
+class ActivoUbicacionViewSet(viewsets.ModelViewSet):
+    queryset = ActivoUbicacion.objects.all()
+    serializer_class = ActivoUbicacionSerializer
+
+class ActivoViewSet(viewsets.ModelViewSet):
+    queryset = Activo.objects.all()
+    serializer_class = ActivoSerializer
