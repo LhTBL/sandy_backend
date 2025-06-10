@@ -2,3 +2,5 @@ djangorestframework
 SimpleJWT
 django
 django-cors-headers
+pandas==2.0.3
+openpyxl==3.1.2
