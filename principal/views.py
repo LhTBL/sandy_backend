@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
-from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework import viewsets, status
 from django.contrib.auth import get_user_model
 from .models import ActivoUbicacion, Activo
-from .serializers import ActivoUbicacionSerializer, ActivoSerializer, ReportRequestSerializer
+from .serializers import ActivoUbicacionSerializer, ActivoSerializer, ReportRequestSerializer, UserRegistrationSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -189,3 +189,25 @@ def get_report_data(report_type, date_range, filter_type):
         return None
 
     return df
+
+
+class UserRegistrationView(APIView):
+    permission_classes = [AllowAny]
+    
+    def post(self, request):
+        serializer = UserRegistrationSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            return Response(
+                {
+                    "user": {
+                        "id": user.id, 
+                        "username": user.username,
+                        "email": user.email,
+                        "name": user.first_name
+                    },
+                    "message": "User registered successfully",
+                }, 
+                status=status.HTTP_201_CREATED
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
