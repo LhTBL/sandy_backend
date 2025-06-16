@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import viewsets, status
 from django.contrib.auth import get_user_model
-from .models import ActivoUbicacion, Activo
-from .serializers import ActivoUbicacionSerializer, ActivoSerializer, ReportRequestSerializer, UserRegistrationSerializer
+from .models import ActivoUbicacion, Activo, Medicamento
+from .serializers import ActivoUbicacionSerializer, ActivoSerializer, MedicamentoSerializer, ReportRequestSerializer, UserRegistrationSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -44,6 +44,10 @@ class ActivoUbicacionViewSet(viewsets.ModelViewSet):
 class ActivoViewSet(viewsets.ModelViewSet):
     queryset = Activo.objects.all()
     serializer_class = ActivoSerializer
+
+class MedicamentoViewSet(viewsets.ModelViewSet):
+    queryset = Medicamento.objects.all()
+    serializer_class = MedicamentoSerializer
 
 
 @api_view(['POST'])

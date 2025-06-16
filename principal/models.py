@@ -31,3 +31,11 @@ class Activo(models.Model):
         verbose_name = 'Activo'
         verbose_name_plural = 'Activos'
 
+class Medicamento(models.Model):
+    nombre = models.CharField(max_length=100)
+    descripcion = models.TextField(max_length=100)
+    fecha_vencimiento = models.DateField()
+    cantidad = models.PositiveIntegerField()
+
+    def __str__(self):
+        return self.nombre

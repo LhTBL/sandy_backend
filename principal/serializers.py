@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import ActivoUbicacion, Activo
+from .models import ActivoUbicacion, Activo, Medicamento
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 
@@ -12,6 +12,12 @@ class ActivoSerializer(serializers.ModelSerializer):
     ubicacion = serializers.ReadOnlyField(source='ubicacion.nombre')
     class Meta:
         model = Activo
+        fields = '__all__'
+
+
+class MedicamentoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Medicamento
         fields = '__all__'
 
 
