@@ -36,6 +36,7 @@ class Medicamento(models.Model):
     descripcion = models.TextField(max_length=100)
     fecha_vencimiento = models.DateField()
     cantidad = models.PositiveIntegerField()
+    imagen_url = models.URLField()
 
     def __str__(self):
         return self.nombre
